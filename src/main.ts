@@ -8,10 +8,10 @@ export default {
     // Forward to email addresses
     let forwardPromiseList: Promise<void>[] = [];
     if (env.FORWARD_ADDRESSES) {
-      const forwardAddresses: string = env.FORWARD_ADDRESSES.trim()
+      const forwardAddresses: string = env.FORWARD_ADDRESSES
       const addressList = forwardAddresses.split(",")
       forwardPromiseList = addressList.map((address) =>
-        forwardToAddress(message, address)
+        forwardToAddress(message, address.trim())
       )
     }
 
@@ -21,11 +21,11 @@ export default {
     const parser = new PostalMime();
     const email = await parser.parse(arrayBuffer);
 
-    const webhooks: string = env.DISCORD_WEBHOOK_URLS.trim()
+    const webhooks: string = env.DISCORD_WEBHOOK_URLS
     const webhookList = webhooks.split(",")
 
     const sendPromiseList = webhookList.map((webhook) =>
-      sendToDiscord(webhook, email, message.from, message.to, forceConvertHtml)
+      sendToDiscord(webhook.trim(), email, message.from, message.to, forceConvertHtml)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`${response.url}: ${response.status} ${response.statusText}`);
