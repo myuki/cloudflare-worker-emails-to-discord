@@ -1,0 +1,12 @@
+{
+  "name": "cloudflare-worker-emails-to-discord",
+  "main": "src/worker.ts",
+  "compatibility_date": "2025-04-02",
+  "vars": {
+    "FORCE_CONVERT_HTML": "true",
+    "FORWARD_ADDRESSES": ""
+  },
+  "observability": {
+    "enabled": true
+  }
+}
